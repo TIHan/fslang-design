@@ -1,4 +1,4 @@
-# F# RFC FS-1074 - Default interface member interop
+# F# RFC FS-1074 - Default Interface Method Consumption
 
 The design suggestion [Default interface member interop](https://github.com/fsharp/fslang-suggestions/issues/679) has been marked "approved in principle".
 This RFC covers the detailed proposal for this suggestion.
@@ -135,6 +135,24 @@ type Test () =
 ```
 
 The user does not need to be explicit with `IA` because all the slots for `IA` have a default implementation. `IA.M` has a most specific implementation, which is `IA`; there is no ambiguity here.
+
+When the user wants to override the default implementation for `IA.M`, the user will have to be explicit:
+
+```fsharp
+type Test () =
+
+    interface IA with
+
+        member __.M() = ()
+
+    interface IB with
+
+        member __.MB() = ()
+
+    interface IC with
+
+        member __.MC() = ()
+```
 
 # Drawbacks
 
